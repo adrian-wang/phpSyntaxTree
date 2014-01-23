@@ -19,7 +19,7 @@
 //
 // $Id: index.php,v 1.14 2005/08/22 23:31:16 int2str Exp $
 
-define( 'VERSION', '1.11-GIT' );
+define( 'VERSION', '2.0-BRANCH' );
 
 define( 'LOG_PHRASE', 0 );
 define( 'LOG_LANG', 1 );
@@ -133,6 +133,7 @@ $page->SetValues( array(
     'SVG'           => $svg,
     'PHRASE'        => $phrase,
     'DATA_VAL'      => $phrase,
+    'DATA_CHANGE'   => process($phrase),
     'COLOR_VAL'     => $_SESSION['color']     ? HTML_CHECKED : HTML_UNCHECKED,
     'ANTIALIAS_VAL' => $_SESSION['antialias'] ? HTML_CHECKED : HTML_UNCHECKED,
     'AUTOSUB_VAL'   => $_SESSION['autosub']   ? HTML_CHECKED : HTML_UNCHECKED,
@@ -144,4 +145,61 @@ $page->SetValues( array(
 
 $page->Render();
 
+?>
+<?PHP
+function process($data)
+{
+	$ret = "";
+	if (strlen($data) !== 0) {
+		$count = 0;
+		$prefix1 = "<label id=\"label";
+		$prefix2 = "\" name=\"";
+		$prefix3 = "\" onclick=\"jsfunction(";
+		$prefix4 = ")\">";
+		$postfix = "</label>";
+		// echo "<h1>try click on the bracket!<br></h1>";
+		$stack = new mystack();
+		for ($i=0; $i<strlen($data); $i++) {
+			$out = $data[$i];
+			if ($out !== '[' && $out !== ']') {
+				$ret = $ret.$out;
+			} else if ($out === '[') {
+				$stack->push($count);
+				$ret = $ret.$prefix1."+".$count.$prefix2.$i.$prefix3.$count.$prefix4.$out.$postfix;
+				$count++;
+			} else if ($out === ']') {
+				if ($stack->isEmpty() === 1) {
+					$ret = "<h2>not match!</h2>";
+					return $ret;
+				}
+				$match = $stack->pop();
+				$ret = $ret.$prefix1."-".$match.$prefix2.$i.$prefix3.$match.$prefix4.$out.$postfix;
+			}
+		}
+		if ($stack->isEmpty() === 0) {
+			$ret = "<h2>not match!!</h2>";
+			return $ret;
+		}
+		$count = 0;
+	}
+	return $ret;
+}
+class mystack{
+	private $top=-1;
+	private $stack=array();
+	public function isEmpty() {
+		if ($this->top==-1)
+			return 1;
+		else
+			return 0;
+	}
+	public function push($data) {
+		$this->stack[++$this->top]=$data;
+	}
+	public function pop() {
+		$ret = $this->stack[$this->top];
+		unset($this->stack[$this->top--]);
+		return $ret;
+	}
+}
 ?>

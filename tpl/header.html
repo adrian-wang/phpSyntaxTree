@@ -24,6 +24,41 @@
          _uacct = "UA-108069-1";
          urchinTracker();
      </script>
+     <script type="text/JavaScript">
+	 var mark=0;
+	 var begin;
+	 var end;
+	 function jsfunction(x)
+         {
+	   if (document.getElementById('label+'+x).style.color == 'rgb(255, 0, 0)') {
+	     document.getElementById('label+'+x).style.color = '#000000';
+             document.getElementById('label+'+x).style.background='#FFFFFF';
+             document.getElementById('label-'+x).style.color = '#000000';
+             document.getElementById('label-'+x).style.background='#FFFFFF';
+             mark=0;
+           } else {
+             document.getElementById('label+'+x).style.color='#FF0000';
+             document.getElementById('label+'+x).style.background='#00FF00';
+             document.getElementById('label-'+x).style.color='#FF0000';
+             document.getElementById('label-'+x).style.background='#00FF00';
+             mark=x;
+             begin = document.getElementById('label+'+x).getAttribute("name");
+             end = document.getElementById('label-'+x).getAttribute("name");
+	   }
+	 }
+	 function changeInput()
+	 {
+           var odata = document.getElementById('data').value;
+	   // alert(document.getElementById('data').value);
+	   var nwindow = window.open('{FORM_ACTION}');
+	   if (mark == 0) {
+	     nwindow.prompt("copy this!", odata);
+	   } else {
+	     nwindow.prompt("copy this, and paste into the new opened window!", odata.substring(begin, parseInt(end) + 1));
+	   }
+	   //nwindow.document.getElementById('data').value = "hehe";
+	 }
+     </script>
 </head>
 
 <body>

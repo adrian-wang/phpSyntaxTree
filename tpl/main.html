@@ -17,11 +17,13 @@
             Closed brackets: 
             <input type="text" class="readonly" name="closedcount" size="2" readonly="readonly" />
         </div>
-    </fieldset>
-</div>
 
-<div id="phrase">
-    {PHRASE}
+	{DATA_CHANGE}
+		
+	<div id="actions2">
+            <button name="drawbtn2" onclick="changeInput()"> Open a new window and draw sub-tree </button> 
+        </div>
+    </fieldset>
 </div>
 
 <div id="graph">
@@ -55,6 +57,7 @@
             <input type="checkbox" name="antialias" {ANTIALIAS_VAL} /> Smooth lines
             <input type="checkbox" name="autosub"   {AUTOSUB_VAL}   /> Auto subscript
             <input type="checkbox" name="triangles" {TRIANGLES_VAL} /> Triangles
+	    <input type="checkbox" name="parentheis" {PARENTHESIS_VAL} 	/> Enable Parenthesis
         </div>
     </fieldset>
 </div>
@@ -62,7 +65,8 @@
 </form>
 
 <div id="tip">
-    <strong>Tip:</strong> Click on the syntax tree image to download a copy.
+    <strong>Tip:</strong> Click on the syntax tree image to download a copy.<br>
+    <strong>Tip:</strong> Click on one of the brackets to highlight the match pair, click again to unhighlight.
 </div>
 
 </div>
