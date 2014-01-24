@@ -48,15 +48,23 @@
 	 }
 	 function changeInput()
 	 {
-           var odata = document.getElementById('data').value;
+           var datadiv = document.getElementById('data');
+           var odata = datadiv.value;
 	   // alert(document.getElementById('data').value);
-	   var nwindow = window.open('{FORM_ACTION}');
+	   // var nwindow = window.open('{FORM_ACTION}');
+           var ndata;
 	   if (mark == 0) {
-	     nwindow.prompt("copy this!", odata);
+	     ndata = odata;
 	   } else {
-	     nwindow.prompt("copy this, and paste into the new opened window!", odata.substring(begin, parseInt(end) + 1));
+	     ndata = odata.substring(begin, parseInt(end) + 1);
 	   }
-	   //nwindow.document.getElementById('data').value = "hehe";
+           // nwindow.prompt("copy this, and paste into the new opened window!", ndata);
+           var dataform = document.getElementById('phraseform');
+           dataform.setAttribute('target', '_blank');
+           datadiv.value = ndata;
+           dataform.submit();
+           datadiv.value = odata;
+           dataform.removeAttribute('target');
 	 }
      </script>
 </head>
