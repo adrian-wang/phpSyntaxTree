@@ -26,9 +26,7 @@
      </script>
      <script type="text/JavaScript">
 	 var mark=0;
-	 var begin;
-	 var end;
-	 function jsfunction(x)
+	 function colorfunction(x)
          {
 	   if (document.getElementById('label+'+x).style.color == 'rgb(255, 0, 0)') {
 	     document.getElementById('label+'+x).style.color = '#000000';
@@ -42,17 +40,17 @@
              document.getElementById('label-'+x).style.color='#FF0000';
              document.getElementById('label-'+x).style.background='#00FF00';
              mark=x;
-             begin = document.getElementById('label+'+x).getAttribute("name");
-             end = document.getElementById('label-'+x).getAttribute("name");
 	   }
 	 }
 	 function changeInput()
 	 {
            var datadiv = document.getElementById('data');
-           var odata = datadiv.value;
+           var odata = document.getElementById('keepdata').value;
 	   // alert(document.getElementById('data').value);
 	   // var nwindow = window.open('{FORM_ACTION}');
            var ndata;
+           var begin = document.getElementById('label+'+mark).getAttribute('name');
+           var end = document.getElementById('label-'+mark).getAttribute("name");
 	   if (mark == 0) {
 	     ndata = odata;
 	   } else {
@@ -60,13 +58,13 @@
 	   }
            // nwindow.prompt("copy this, and paste into the new opened window!", ndata);
            var dataform = document.getElementById('phraseform');
-           dataform.setAttribute('target', '_blank');
+           //dataform.setAttribute('target', '_blank');
            datadiv.value = ndata;
-           window.openDialog('about:blank', '_blank', 'all,dialog=no');
+           //window.openDialog('about:blank','_blank','all,dialog=no');
            dataform.submit();
-           datadiv.value = odata;
-           dataform.removeAttribute('target');
-	 }
+           //datadiv.value = odata;
+           //dataform.removeAttribute('target');
+         }
      </script>
 </head>
 

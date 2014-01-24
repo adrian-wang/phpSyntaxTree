@@ -126,6 +126,13 @@ $svg    = sprintf( "<div id=\"svg\"><a href=\"stgraph.svg.php?%s\">%s</a></div>"
 $fontoption = sprintf( "SELECT_%s", $_SESSION['fontsel'] );
 $sizeoption = sprintf( "SELECT_size_%d", $_SESSION['fontsize'] );
 
+$keepdata = "";
+if( isset( $_POST['keepdata'] ) && strlen($_POST['keepdata']) > 1) {
+    $keepdata = $_POST['keepdata'];
+} else {
+    $keepdata = $phrase;
+}
+
 $page->SetValues( array(
     'VERSION'       => VERSION,
     'FORM_ACTION'   => sprintf( "?%s", strip_tags( SID )),
@@ -133,7 +140,8 @@ $page->SetValues( array(
     'SVG'           => $svg,
     'PHRASE'        => $phrase,
     'DATA_VAL'      => $phrase,
-    'DATA_CHANGE'   => process($phrase),
+    'DATA_CHANGE'   => process($keepdata),
+    'KEEP_DATA'     => $keepdata,
     'COLOR_VAL'     => $_SESSION['color']     ? HTML_CHECKED : HTML_UNCHECKED,
     'ANTIALIAS_VAL' => $_SESSION['antialias'] ? HTML_CHECKED : HTML_UNCHECKED,
     'AUTOSUB_VAL'   => $_SESSION['autosub']   ? HTML_CHECKED : HTML_UNCHECKED,
@@ -154,7 +162,7 @@ function process($data)
 		$count = 0;
 		$prefix1 = "<label id=\"label";
 		$prefix2 = "\" name=\"";
-		$prefix3 = "\" onclick=\"jsfunction(";
+		$prefix3 = "\" onclick=\"colorfunction(";
 		$prefix4 = ")\">";
 		$postfix = "</label>";
 		// echo "<h1>try click on the bracket!<br></h1>";
