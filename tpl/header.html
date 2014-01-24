@@ -62,6 +62,7 @@
            var dataform = document.getElementById('phraseform');
            dataform.setAttribute('target', '_blank');
            datadiv.value = ndata;
+           window.openDialog('about:blank', '_blank', 'all,dialog=no');
            dataform.submit();
            datadiv.value = odata;
            dataform.removeAttribute('target');
