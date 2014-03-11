@@ -63,10 +63,10 @@ function bracketCount()
 
     for ( i=0; i<str.length; i++ )
     {
-        if ( str.charAt( i ) == "[" )
+        if ( str.charAt( i ) == "[" || str.charAt( i ) == "(" )
             bracketOpen++;
 
-        if ( str.charAt( i ) == "]" )
+        if ( str.charAt( i ) == "]" || str.charAt( i ) == ")" )
             bracketClosed++;
     }
 

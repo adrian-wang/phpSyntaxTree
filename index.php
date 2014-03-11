@@ -169,13 +169,13 @@ function process($data)
 		$stack = new mystack();
 		for ($i=0; $i<strlen($data); $i++) {
 			$out = $data[$i];
-			if ($out !== '[' && $out !== ']') {
+			if ($out !== '[' && $out !== ']' && $out !== '(' && $out !== ')') {
 				$ret = $ret.$out;
-			} else if ($out === '[') {
+			} else if ($out === '[' || $out === '(') {
 				$stack->push($count);
 				$ret = $ret.$prefix1."+".$count.$prefix2.$i.$prefix3.$count.$prefix4.$out.$postfix;
 				$count++;
-			} else if ($out === ']') {
+			} else if ($out === ']' || $out == ')') {
 				if ($stack->isEmpty() === 1) {
 					$ret = "<h2>not match!</h2>";
 					return $ret;

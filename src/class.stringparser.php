@@ -50,7 +50,11 @@ class CStringParser
     function CStringParser( $s )
     {
         // Clean up the data a little to make processing easier
-        
+       
+        // support "()"
+        $s = str_replace( "(", "[", $s);
+        $s = str_replace( ")", "]", $s);
+
         $s = str_replace( "\t", "", $s );
         $s = str_replace( "\n", " ", $s );
         $s = str_replace( "\r", " ", $s );
